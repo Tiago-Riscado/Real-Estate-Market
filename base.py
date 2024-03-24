@@ -32,7 +32,7 @@ df['BATHROOMS'] = df['BATHROOMS'].replace([np.inf, -np.inf], np.nan)
 df['GARAGE'] = df['GARAGE'].replace([np.inf, -np.inf], np.nan)
 df['BUILD_YEAR'] = df['BUILD_YEAR'].replace([np.inf, -np.inf], np.nan)
 
-# Conversão de floar para inteiro
+# Conversão de float para inteiro
 
 df['PRICE'] = pd.to_numeric(df['PRICE'], errors='coerce').astype(pd.Int64Dtype())
 df['POSTCODE'] = pd.to_numeric(df['POSTCODE'], errors='coerce').astype(pd.Int64Dtype())
