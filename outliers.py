@@ -1,13 +1,16 @@
+import matplotlib.pyplot as plt
+import seaborn as sns
 from base import *
-import numpy as np
 
+columns = df.select_dtypes(include=['int', 'float']).columns
 
-# calcular z-score para cada coluna com valores numéricos
-threshold = 3
-for col in df.select_dtypes(include=['int64', 'float64']).columns:
-    z = (df[col] - df[col].mean()) / np.std(df[col])
-    outliers = df[z > threshold]
+for i, col1 in enumerate(columns):
+    for j, col2 in enumerate(columns):
+        if i != j:
+            plt.figure(figsize=(8, 6))
+            sns.scatterplot(x=col1, y=col2, data=df)
+            plt.xlabel(col1)
+            plt.ylabel(col2)
+            plt.title(f'Scatter plot: {col1} vs {col2}')
+            plt.show()
 
-    # imprimir os outliers
-    print(f"Outliers in column {col} with z-score > {threshold}:")
-    print(outliers)
