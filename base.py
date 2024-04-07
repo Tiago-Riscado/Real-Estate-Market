@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 
+
 # Criação das dataframes
 path1 = r"data\all_perth_310121.csv"
 path2 = r"data\Melbourne_housing_FULL.csv"
@@ -40,3 +41,4 @@ df.to_csv('data/dataset.csv', index=False)
 
 # Carregar o dataset
 df = pd.read_csv('data/dataset.csv', low_memory=False)
+
