@@ -1,7 +1,5 @@
 from base import *
 import matplotlib.pyplot as plt
-import tkinter as tk
-import pandastable as pt
 # Contagem de valores em falta
 
 def missing_values(df, name):
