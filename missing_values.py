@@ -2,16 +2,17 @@ from base import *
 import matplotlib.pyplot as plt
 # Contagem de valores em falta para cada dataset
 
+
 def missing_values(df, name):
     missing_values_count = df.isnull().sum()
 
     print(f"Valores em falta do dataset -> {name}:\n{missing_values_count}")
     return missing_values_count
 
-missing_values(df1, 'Perth' )
+
+missing_values(df1, 'Perth')
 missing_values(df2, 'Melbourne')
 missing_values_df = missing_values(df,  'Dataset')
-
 
 
 # Função para plotar histograma de valores ausentes
@@ -24,6 +25,7 @@ def plot_missing_histogram(dataframe, title):
     plt.ylabel('Contagem de Valores Ausentes')
     plt.xticks(rotation=45)
     plt.show()
+
 
 plot_missing_histogram(df1, 'Histograma de Valores Ausentes - Perth')
 plot_missing_histogram(df2, 'Histograma de Valores Ausentes - Melbourne')
@@ -47,7 +49,10 @@ plt.title('Porcentagem de Valores Presentes e Ausentes')
 plt.axis('equal')
 plt.show()
 
-# Alterar valores ausentes numericos para a mediana, valores categóricos para a moda e remover linhas com mais de 3 características ausentes no dataset original
+
+# Alterar valores ausentes numericos para a mediana, valores categóricos para a moda
+# Remover linhas com mais de 3 características ausentes no dataset original
+
 for col in df.columns:
     if pd.api.types.is_numeric_dtype(df[col]):
         median = df[col].median()
@@ -61,6 +66,11 @@ for col in df.columns:
 
 # Plotar histograma de valores ausentes
 plot_missing_histogram(df, 'Histograma de Valores Ausentes - Data sem Valores Ausentes')
+
+# Transformar valores numéricos para inteiros
+numeric_columns = ['PRICE', 'POSTCODE', 'BEDROOMS', 'BATHROOMS', 'GARAGE', 'BUILD_YEAR']
+for col in numeric_columns:
+    df[col] = pd.to_numeric(df[col], errors='coerce').round(decimals=0).astype('Int64')
 
 # Salvar o dataset sem valores ausentes
 df.to_csv('data/dataset_without_missing_values.csv', index=False)

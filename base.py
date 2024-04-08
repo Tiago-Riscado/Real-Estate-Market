@@ -1,6 +1,4 @@
 import pandas as pd
-import numpy as np
-
 
 # Criação das dataframes
 path1 = r"data\all_perth_310121.csv"
@@ -41,3 +39,4 @@ df = pd.read_csv('data/dataset.csv', low_memory=False)
 
 # Carregar o dataframe sem valores ausentes
 df_fix = pd.read_csv('data/dataset_without_missing_values.csv', low_memory=False)
+
