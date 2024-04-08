@@ -1,6 +1,6 @@
 from base import *
 import matplotlib.pyplot as plt
-# Contagem de valores em falta
+# Contagem de valores em falta para cada dataset
 
 def missing_values(df, name):
     missing_values_count = df.isnull().sum()
@@ -47,40 +47,22 @@ plt.title('Porcentagem de Valores Presentes e Ausentes')
 plt.axis('equal')
 plt.show()
 
-
-def plot_frequency_table_with_intervals(column):
-    # Definir os intervalos de anos
-    intervals = [0, 1970, 1980, 1990, 2000, 2010, df[column].max() + 1]
-    interval_labels = ['<1970', '1970-1980', '1980-1990', '1990-2000', '2000-2010', '2010+']
-
-    # Categorizar os anos de construção em intervalos
-    df['Year Interval'] = pd.cut(df[column], bins=intervals, labels=interval_labels)
-
-    # Calcular a tabela de frequência com base nos intervalos
-    frequency_table = df['Year Interval'].value_counts().reset_index()
-    frequency_table.columns = ['Year Interval', 'Frequência']
-
-    # Exibir a tabela de frequência em uma janela separada
-    fig, ax = plt.subplots(figsize=(10, 6))
-    ax.axis('off')  # Desativar os eixos
-    ax.table(cellText=frequency_table.values, colLabels=frequency_table.columns, loc='center')
-    plt.title(f"Tabela de Frequência para o ano de construção")
-    plt.show()
-
-
-# Exibir a tabela de frequência com intervalos para o ano de construção
-plot_frequency_table_with_intervals("BUILD_YEAR")
-# Alterar valores ausentes para a moda da coluna e salvar o dataset em ficheriro CSV
-
+# Alterar valores ausentes numericos para a mediana, valores categóricos para a moda e remover linhas com mais de 3 características ausentes no dataset original
 for col in df.columns:
-    mode = df[col].mode()[0]
-    df[col].fillna(mode, inplace=True)
+    if pd.api.types.is_numeric_dtype(df[col]):
+        median = df[col].median()
+        df[col] = df[col].fillna(median)
+    else:
+        mode = df[col].mode()[0]
+        df.loc[:, col] = df[col].fillna(mode)
 
+    # Remover linhas com mais de 3 craracterísticas ausentes
+    df = df.dropna(thresh=len(df.columns) - 3)
 
-
-
-
+# Plotar histograma de valores ausentes
 plot_missing_histogram(df, 'Histograma de Valores Ausentes - Data sem Valores Ausentes')
 
+# Salvar o dataset sem valores ausentes
 df.to_csv('data/dataset_without_missing_values.csv', index=False)
+
 missing_values_df = missing_values(df,  'Data sem Valores Ausentes')
