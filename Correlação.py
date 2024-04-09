@@ -6,7 +6,7 @@ import seaborn as sns
 
 numericas = df_fix.select_dtypes(include=['int', 'float']).columns
 
-correlacao = df_fix[numericas].corr()
+correlacao = df_final[numericas].corr()
 
 plt.figure(figsize=(10, 8))
 sns.heatmap(correlacao, annot=True, cmap='coolwarm', fmt=".2f")

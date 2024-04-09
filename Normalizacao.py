@@ -1,6 +1,6 @@
 from sklearn.preprocessing import MinMaxScaler
 from base import *
-import pandas as pd
+
 def normaliza_dados(dados):
 
     colunas_numericas = dados.select_dtypes(include=['int', 'float']).columns
@@ -11,7 +11,7 @@ def normaliza_dados(dados):
 
     return normallizar
 
-df_normalizado = normaliza_dados(df_fix)
+df_normalizado = normaliza_dados(df_final)
 
 #print(df_normalizado)
 
