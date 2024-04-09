@@ -4,7 +4,7 @@ import seaborn as sns
 
 # Função para plotar gráfico de correlação
 
-numericas = df_fix.select_dtypes(include=['int', 'float']).columns
+numericas = df_final.select_dtypes(include=['int', 'float']).columns
 
 correlacao = df_final[numericas].corr()
 
