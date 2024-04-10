@@ -3,10 +3,10 @@ import matplotlib.pyplot as plt
 # Contagem de valores em falta para cada dataset
 
 
-def missing_values(df, name):
+def missing_values(df, nome):
     missing_values_count = df.isnull().sum()
 
-    print(f"Valores em falta do dataset -> {name}:\n{missing_values_count}")
+    print(f"Valores em falta do dataset -> {nome}:\n{missing_values_count}")
     return missing_values_count
 
 
@@ -34,12 +34,12 @@ plot_missing_histogram(df, 'Histograma de Valores Ausentes - Dataset')
 
 # Calcular a porcentagem de valores ausentes em relação aos valores presentes
 total_values = len(df)
-percentage_missing = (missing_values_df / total_values) * 100
-percentage_present = 100 - percentage_missing
+porcentagem_missing = (missing_values_df / total_values) * 100
+porcentagem_presente = 100 - porcentagem_missing
 
 # Plotar gráfico circular
 labels = ['Valores Presentes', 'Valores Ausentes']
-sizes = [percentage_present.sum(), percentage_missing.sum()]
+sizes = [porcentagem_presente.sum(), porcentagem_missing.sum()]
 colors = ['lightgreen', 'coral']
 explode = (0.1, 0)
 
@@ -55,11 +55,11 @@ plt.show()
 
 for col in df.columns:
     if pd.api.types.is_numeric_dtype(df[col]):
-        median = df[col].median()
-        df[col] = df[col].fillna(median)
+        mediana = df[col].median()
+        df[col] = df[col].fillna(mediana)
     else:
-        mode = df[col].mode()[0]
-        df.loc[:, col] = df[col].fillna(mode)
+        moda = df[col].mode()[0]
+        df.loc[:, col] = df[col].fillna(moda)
 
     # Remover linhas com mais de 3 craracterísticas ausentes
     df = df.dropna(thresh=len(df.columns) - 3)
@@ -68,8 +68,8 @@ for col in df.columns:
 plot_missing_histogram(df, 'Histograma de Valores Ausentes - Data sem Valores Ausentes')
 
 # Transformar valores numéricos para inteiros
-numeric_columns = ['PRICE', 'POSTCODE', 'BEDROOMS', 'BATHROOMS', 'GARAGE', 'BUILD_YEAR']
-for col in numeric_columns:
+colunas_numericas = ['PRICE', 'POSTCODE', 'BEDROOMS', 'BATHROOMS', 'GARAGE', 'BUILD_YEAR']
+for col in colunas_numericas:
     df[col] = pd.to_numeric(df[col], errors='coerce').round(decimals=0).astype('Int64')
 
 # Salvar o dataset sem valores ausentes

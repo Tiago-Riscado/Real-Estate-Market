@@ -20,8 +20,8 @@ df2 = df2.drop(columns={'Rooms', 'Type', 'Method', 'SellerG', 'BuildingArea', 'C
 df = pd.concat([df1, df2], ignore_index=True)
 
 # Conversão de float para inteiro
-numeric_columns = ['PRICE', 'POSTCODE', 'BEDROOMS', 'BATHROOMS', 'GARAGE', 'BUILD_YEAR']
-for col in numeric_columns:
+colunas_numericas = ['PRICE', 'POSTCODE', 'BEDROOMS', 'BATHROOMS', 'GARAGE', 'BUILD_YEAR']
+for col in colunas_numericas:
     df[col] = pd.to_numeric(df[col], errors='coerce').round(decimals=0).astype('Int64')
 
 # Conversão de string para datetime

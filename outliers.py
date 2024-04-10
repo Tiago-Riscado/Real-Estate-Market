@@ -35,7 +35,7 @@ def contar_outliers(df):
     return
 
 
-print('Contagem de outliers antes da remoção:')
+print('Contagem de outliers antes da alteração:')
 contar_outliers(df_fix)
 
 outliers = (df_fix[columns] < lim_inf) | (df_fix[columns] > lim_sup)
@@ -48,26 +48,26 @@ for i, col1 in enumerate(columns):
              sns.scatterplot(x=col1, y=col2, data=df_fix)
              plt.xlabel(col1)
              plt.ylabel(col2)
-             plt.title(f'Scatter plot: {col1} vs {col2}')
+             plt.title(f'Grafico de dispersão {col1} vs {col2}')
              plt.show()
 
 
-# Remoção dos outliers com o método IQR
+# Alteração dos outliers com o método IQR
 # Substituição dos outliers pela mediana
 for col in columns:
     df_fix[col] = np.where(outliers[col], df_fix[col].median(), df_fix[col])
 
-# Contagem de outliers após a remoção
+# Contagem de outliers após a alteração
 outliers_apos = (df_fix[columns] < lim_inf) | (df_fix[columns] > lim_sup)
 num_outliers_col_apos = outliers_apos.sum()
 
-print("Quantidade de Outliers após remoção:")
+print("Quantidade de Outliers após a alteração:")
 print(num_outliers_col_apos)
 
 
 # Transformar valores numéricos para inteiros
-numeric_columns = ['PRICE', 'POSTCODE', 'BEDROOMS', 'BATHROOMS', 'GARAGE', 'BUILD_YEAR']
-for col in numeric_columns:
+colunas_numericas = ['PRICE', 'POSTCODE', 'BEDROOMS', 'BATHROOMS', 'GARAGE', 'BUILD_YEAR']
+for col in colunas_numericas:
     df_fix[col] = pd.to_numeric(df_fix[col], errors='coerce').round(decimals=0).astype('Int64')
 
 # Salvar o dataset sem outliers em um arquivo CSV
