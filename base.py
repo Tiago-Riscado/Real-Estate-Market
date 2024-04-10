@@ -43,4 +43,6 @@ df_fix = pd.read_csv('data/dataset_without_missing_values.csv', low_memory=False
 # Carregar o dataframe final sem outliers e valores ausentes
 df_final = pd.read_csv('data/dataset_final.csv', low_memory=False)
 
+# Carregar o dataframe normalizado
+df_normalizado = pd.read_csv('data/dataset_normalizado.csv', low_memory=False)
 

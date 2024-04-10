@@ -17,3 +17,8 @@ def normaliza_dados(dados):
 df_normalizado = normaliza_dados(df_final)
 
 # print(df_normalizado)
+
+# Criação do dataset file
+df_normalizado = pd.DataFrame(df_normalizado)
+
+df_normalizado.to_csv('data/dataset_normalizado.csv', index=False)
